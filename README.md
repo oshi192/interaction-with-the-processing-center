@@ -7,7 +7,7 @@ each request sends with digital signature in Base64 format ("PayLogic-Signature"
 
 Each RESPONCE verify by digital signature, and their data also in xml body.
 #### XML tegs:
-Verify (verification of the entered data by the subscriber):
+ - Verify (verification of the entered data by the subscriber):
 
 Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
@@ -15,6 +15,24 @@ service | attribute | Int4 | true |Service number
 account |attribute |varchar100 |true  |Subscriber number in the system of the service provider
 attribute  |Element  | |false |Used to specify additional attributes. Maybe a few. The structure is the same as for Payment.
 
+ - Attribute:
+ 
+Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
+name | attribute | varchar50 | true | Attribute name
+value | attribute | varchar100 | true | Attribute value
+
+ - Payment
+ 
+Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
+id | attribute | Int8 | true | The agent operation ID must be unique
+sum | attribute | Int4 | true | Amount of replenishment of a personal account in kopecks
+check | attribute | Int4 | true | Check number issued to the customer
+service | attribute | Int4 | true | Service number
+account | attribute | Varchar100 | true | Subscriber number in the system of the service provider
+date | attribute | Time | true | Date of receipt of payment, used for reconciliation
+attribute | Element |  | false | Used to specify additional attributes. Maybe a few.
 
 
 ### How to launch:
