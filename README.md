@@ -7,13 +7,24 @@ each request sends with digital signature in Base64 format ("PayLogic-Signature"
 
 Each RESPONCE verify by digital signature, and their data also in xml body.
 #### XML tegs:
+
+----------------------------------------------------------
+ - **Request**
+ 
+ Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
+point | attribute | ?? | true | Number of the payment acceptance point.
+ 
+ **Request** teg contains one tag Verify or one Payment or many tags Status
+ 
+---------------------------------------------------------------------------- 
  - Verify (verification of the entered data by the subscriber):
 
 Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
 service | attribute | Int4 | true |Service number
 account |attribute |varchar100 |true  |Subscriber number in the system of the service provider
-attribute  |Element  | |false |Used to specify additional attributes. Maybe a few. The structure is the same as for Payment.
+attribute  |element  | |false |Used to specify additional attributes. Maybe a few. The structure is the same as for Payment.
 
  - Attribute:
  
@@ -32,7 +43,29 @@ check | attribute | Int4 | true | Check number issued to the customer
 service | attribute | Int4 | true | Service number
 account | attribute | Varchar100 | true | Subscriber number in the system of the service provider
 date | attribute | Time | true | Date of receipt of payment, used for reconciliation
-attribute | Element |  | false | Used to specify additional attributes. Maybe a few.
+attribute | element |  | false | Used to specify additional attributes. Maybe a few.
+
+ - Status
+ 
+ Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
+id | attribute | Int8 | true | Agent Operation ID
+
+ - Result
+ 
+ Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
+ id  | attribute  | int8  | false  | Идентификатор операции агента. Отсутствует в случае проверки номера абонента. 
+state  | attribute |  int2  | false  | Статус платежа в системе, возвращается на запрос платежа и статуса 
+substate  | attribute  | int2  | false  | Субстатус платежа в системе, возвращается на запрос платежа и статуса. 
+code  | attribute  | int2  | true  | Код ошибки платежа или ошибка проверки реквизитов 
+final  | attribute  | int2  | false  | Признак финальности статуса запроса (1 — фнальный) 
+trans  | attribute  | int4  | false  | Номер транзакции ПЦ 
+service  | attribute  | Int4  | false  | Результат проверки реквизитов у поставщика прй вызове advanced запросов. Актуален в случае возврата в атрибуте code значения 0. 
+sum  | attribute  | Int4  | false  | Сумма платежа в копейках, возвращается при вызове метода сверки платежей 
+commission  | attribute  | Int4  | false  | Сумма комиссии в копейках, возвращается при вызове метода расчета внешней комиссии 
+sum_prov  | attribute  | Int4  | false  | Сумма транзакции в валюте поставщика 
+server_time  | attribute  | Time  | false  | Время создания операции на сервере ПЦ, может использоваться для сверки с ПЦ 
 
 
 ### How to launch:
