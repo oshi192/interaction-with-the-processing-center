@@ -1,0 +1,5 @@
+<request point="327">
+    <payment id="14546" sum="1000" check="17235" service="4390" account="12345" date="2007-10-12T12:00:00+0300">
+        <attribute name="email" value="info@rol.ru"/>
+    </payment>
+</request>
