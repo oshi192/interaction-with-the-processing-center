@@ -9,6 +9,7 @@ Each RESPONCE verify by digital signature, and their data also in xml body.
 #### XML tegs:
 Verify (verification of the entered data by the subscriber):
 Name | A type | Format | Required | Description
+--- | --- | --- | --- | ---
 service | attribute | Int4 | true |Service number
 account |attribute |varchar100 |true  |Subscriber number in the system of the service provider
 attribute  |Element  | |false |Used to specify additional attributes. Maybe a few. The structure is the same as for Payment.
