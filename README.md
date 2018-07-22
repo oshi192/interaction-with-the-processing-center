@@ -12,14 +12,14 @@ Each RESPONCE verify by digital signature, and their data also in xml body.
 To start application, use one of the following steps:
 #### in Linux
  - **use jar packajing:** <- preffered (need installed maven) 
-    1 download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
-    2 open terminal in sourse folder (where pom file is lying) and type
-    3 mvn package
-    4 java -jar target/TechTest-1.0-SNAPSHOT.jar  
+    1. download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
+    2. open terminal in sourse folder (where pom file is lying) and type
+    3. mvn package
+    4. java -jar target/TechTest-1.0-SNAPSHOT.jar  
  - import to IntelliJ: 
-    1 download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
-    2 needed instaled maven and lombok plugins 
-    3 fine->new->Project from existing source
+    1. download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
+    2. needed instaled maven and lombok plugins 
+    3. fine->new->Project from existing source
  - import to Eclipse: 
 #### in Windows
  - use jar packajing:
