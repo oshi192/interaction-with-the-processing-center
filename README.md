@@ -8,6 +8,7 @@ each request sends with digital signature in Base64 format ("PayLogic-Signature"
 Each RESPONCE verify by digital signature, and their data also in xml body.
 #### XML tegs:
 Verify (verification of the entered data by the subscriber):
+
 Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
 service | attribute | Int4 | true |Service number
