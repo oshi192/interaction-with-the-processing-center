@@ -1,9 +1,11 @@
 package application.model.request;
 
 import application.model.Attribute;
+import application.util.RequestGenerator;
 import lombok.*;
 
 import javax.xml.bind.annotation.*;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -36,4 +38,5 @@ public class Payment extends AbstractRequestBody {
 
     @XmlElement
     private List<Attribute> attributes;
+
 }

@@ -1,9 +1,9 @@
 package application;
 
-
-import application.util.RandomModelCreator;
 import application.security.MessageSecurity;
+import application.util.RequestGenerator;
 import application.util.XmlParsing;
+import org.apache.log4j.Logger;
 
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -13,6 +13,7 @@ import java.security.SignatureException;
 
 class Messenger implements Properties {
 
+    private static final Logger LOGGER =Logger.getLogger(Messenger.class);
     private static MessageSecurity security = MessageSecurity.getInstance();
     private static URLConnection connection;
 
@@ -20,12 +21,18 @@ class Messenger implements Properties {
     }
 
     /**
-     * @param operationName the name of the operation and the file xml for it
+     * @param operation
      */
-    static void operation(String operationName) {
+    static void operation(MainOperations operation) {
         String xmlMessage;
-        System.out.println("\n--------" + operationName + "--------");
-        xmlMessage = XmlParsing.XmlToString(operationName + ".xml");
+        System.out.println("\n--------" + operation.name() + "--------");
+        if (operation==MainOperations.VERIFY) {
+            xmlMessage = RequestGenerator.generateVerify();
+        }else if(operation==MainOperations.PAYMENT){
+            xmlMessage = RequestGenerator.generatePayment();
+        }else{
+            xmlMessage = RequestGenerator.generateStatus();
+        }
         setConnectionHeaders(xmlMessage);
         sendRequest(xmlMessage);
         getResponce();
@@ -64,7 +71,7 @@ class Messenger implements Properties {
             }
             String responceXml = buf.toString();
             String responceSign = connection.getHeaderField(HEADER_NAME);
-            LOGGER.info("response xml  : \n" + "\n" + responceXml + "\n");
+            LOGGER.info("response xml  : \n" + "\n" + XmlParsing.prettyFormat(responceXml) + "\n");
             LOGGER.info("response sign : " + responceSign);
             LOGGER.info("verify sign   : " + security.verify(responceXml, responceSign));
         } catch (Exception e) {
@@ -112,7 +119,7 @@ class Messenger implements Properties {
         connection = createConjection();
         connection.setRequestProperty("Content-Type", "text/xml");
         connection.setRequestProperty(HEADER_NAME, requestSign);
-        LOGGER.info("request xml   : \n" + "\n" + message + "\n");
+        LOGGER.info("request xml   : \n" + "\n" + XmlParsing.prettyFormat(message) + "\n");
         LOGGER.info("request sign  : " + requestSign);
     }
 }

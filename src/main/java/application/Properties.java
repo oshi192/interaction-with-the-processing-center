@@ -10,6 +10,10 @@ public interface Properties {
     String PRIVATE_KEY_FILE_NAME="private.pem";
     int POINT=327;
     int SERVICE=4390;
-    Logger LOGGER =Logger.getLogger(Main.class);
+    int SUM_MIN=1;
+    int SUM_MAX=1599900;
+    int ACCOUNT_LENGTH=50;
+    int ATTRIBUTE_MAX_NUMBER=5;
+    int MAX_NUMBER_OF_ELEMENTS=5;
 
 }

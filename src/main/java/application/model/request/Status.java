@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "status")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Status {
+public class Status extends AbstractRequestBody {
     @XmlAttribute(required = true)
-    private long id;
+    private Long id;
 
 }

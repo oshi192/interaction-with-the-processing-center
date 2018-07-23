@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -19,10 +21,10 @@ public class Result {
     private long id;
 
     @XmlAttribute
-    private int state;
+    private short state;
 
     @XmlAttribute
-    private int substate;
+    private short substate;
 
     @XmlAttribute
     private int trans;
@@ -37,16 +39,16 @@ public class Result {
     private int commission;
 
     @XmlAttribute(required = true)
-    private int code;
+    private short code;
 
     @XmlAttribute(name = "final")
-    private int finalStatus;
+    private short finalStatus;
 
     @XmlAttribute(name = "sum_prov")
     private int sumProv;
 
     @XmlAttribute(name = "server_time")
-    private String serverTime;
+    private Date serverTime;
 
 
 }
