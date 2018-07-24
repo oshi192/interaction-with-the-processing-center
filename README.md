@@ -2,10 +2,8 @@
 This application implements interaction with the processing center LeoGaming through three operations: Verify, Payment and Status.
 Each operation makes a POST request to the address [https://test.lgaming.net/external/extended](https://test.lgaming.net/external/extended). 
 
-Request consist with xml body. 
-Request have header "PayLogic-Signature" with digitally signed.
+Request includes xml bod and header "PayLogic-Signature" with digitally signed.
 Each RESPONCE verify by digital signature.
-
 
 #### XML tegs:
 
@@ -91,9 +89,5 @@ To start application, use one of the following steps:
  - import to IntelliJ: 
     - download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
     - needed instaled maven and lombok plugins 
-    - fine->new->Project from existing source
-#### in Windows
- - use jar packajing:
- - import to IntelliJ: 
- - import to Eclipse: 
+    - fine->new->Project from existing source 
 
