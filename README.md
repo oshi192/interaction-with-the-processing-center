@@ -82,7 +82,7 @@ server_time  | attribute  | Time  | false  | Время создания опе�
 To start application, use one of the following steps:
 #### in Linux
  - **use jar packajing:** <- preffered (need installed maven) 
-    - download or type: ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
+    - download project or type in terminal: ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
     - open terminal in sourse folder (where pom file is lying) and type the following:
     - ```mvn package```
     - ```java -jar target/TechTest-1.0-SNAPSHOT.jar ``` 
