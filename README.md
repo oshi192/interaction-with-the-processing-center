@@ -63,17 +63,17 @@ id | attribute | Int8 | true | Agent Operation ID
  
  Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
- id  | attribute  | int8  | false  | Идентификатор операции агента. Отсутствует в случае проверки номера абонента. 
-state  | attribute |  int2  | false  | Статус платежа в системе, возвращается на запрос платежа и статуса 
-substate  | attribute  | int2  | false  | Субстатус платежа в системе, возвращается на запрос платежа и статуса. 
-code  | attribute  | int2  | true  | Код ошибки платежа или ошибка проверки реквизитов 
-final  | attribute  | int2  | false  | Признак финальности статуса запроса (1 — фнальный) 
-trans  | attribute  | int4  | false  | Номер транзакции ПЦ 
-service  | attribute  | Int4  | false  | Результат проверки реквизитов у поставщика прй вызове advanced запросов. Актуален в случае возврата в атрибуте code значения 0. 
-sum  | attribute  | Int4  | false  | Сумма платежа в копейках, возвращается при вызове метода сверки платежей 
-commission  | attribute  | Int4  | false  | Сумма комиссии в копейках, возвращается при вызове метода расчета внешней комиссии 
-sum_prov  | attribute  | Int4  | false  | Сумма транзакции в валюте поставщика 
-server_time  | attribute  | Time  | false  | Время создания операции на сервере ПЦ, может использоваться для сверки с ПЦ 
+ id  | attribute  | int8  | false  | The agent operation ID. Not available if the subscriber number is checked. 
+state  | attribute |  int2  | false  | The status of payment in the system is returned to the payment request and status
+substate  | attribute  | int2  | false  | The sub-status of payment in the system is returned to the payment request and status 
+code  | attribute  | int2  | true  | Payment error code or validation error
+final  | attribute  | int2  | false  | A sign of the finality of the status of the request (1 - final)
+trans  | attribute  | int4  | false  | Transaction number PC
+service  | attribute  | Int4  | false  | The result of verifying the requisites from the vendor when calling advanced requests. It is valid in case of return in the attribute code value 0. 
+sum  | attribute  | Int4  | false  | The amount of payment in kopecks is returned when the reconciliation method is called
+commission  | attribute  | Int4  | false  | The commission amount in kopecks is returned when the external commission calculation method
+sum_prov  | attribute  | Int4  | false  |Transaction amount in supplier currency
+server_time  | attribute  | Time  | false  | The time of creation of the operation on the PC server can be used to reconcile with the PC 
 
 --------------------------------------
 
