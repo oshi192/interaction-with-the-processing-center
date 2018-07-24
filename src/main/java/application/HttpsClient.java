@@ -1,26 +1,25 @@
 package application;
 
+
 import application.security.MessageSecurity;
 import application.util.RequestGenerator;
 import application.util.XmlParsing;
 import org.apache.log4j.Logger;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.net.URLConnection;
 import java.security.SignatureException;
-
 /**
- * class to sends requests and receiving a response
+ * Class to sends requests and receiving a response
  */
-public class Messenger implements Properties {
-
-    private static final Logger LOGGER = Logger.getLogger(Messenger.class);
+public class HttpsClient implements Properties {
+    private static final Logger LOGGER = Logger.getLogger(HttpsClient.class);
     private static MessageSecurity security = MessageSecurity.getInstance();
-    private static URLConnection connection;
+    private static HttpsURLConnection connection;
 
-    private Messenger() {
+    private HttpsClient() {
     }
 
     /**
@@ -38,12 +37,54 @@ public class Messenger implements Properties {
         } else {
             xmlMessage = RequestGenerator.generateStatus();
         }
-        connection = createConnection();
+        connection = configureConnection();
         setConnectionHeaders(xmlMessage);
         sendRequest(xmlMessage);
         getResponce();
     }
 
+    /**
+     * create and configure a connection
+     *
+     * @return instance of URLConnection
+     */
+    private static HttpsURLConnection configureConnection() {
+        URL url;
+        HttpsURLConnection connection = null;
+        try {
+            url = new URL(URL);
+            connection = (HttpsURLConnection) url.openConnection();
+        } catch (Exception e) {
+            LOGGER.error("an exception in createConnection() : " + e);
+            e.printStackTrace();
+        }
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        connection.setUseCaches(false);
+        connection.setDefaultUseCaches(false);
+        connection.setConnectTimeout(20000);
+        connection.setReadTimeout(20000);
+        return connection;
+    }
+
+    /**
+     * set headers of the connection
+     * and signs a String
+     *
+     * @param message - string for signature
+     */
+    private static void setConnectionHeaders(String message) {
+        String requestSign = null;
+        try {
+            requestSign = security.sign(message);
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        }
+        connection.setRequestProperty("Content-Type", "text/xml");
+        connection.setRequestProperty(HEADER_NAME, requestSign);
+        LOGGER.info("request xml   : \n" + "\n" + XmlParsing.prettyFormat(message) + "\n");
+        LOGGER.info("request sign  : " + requestSign);
+    }
 
     /**
      * sends POST request
@@ -61,9 +102,7 @@ public class Messenger implements Properties {
             LOGGER.error("an exception in sendRequest() : " + e);
             e.printStackTrace();
         }
-
     }
-
 
     /**
      * receiving a response and printing it into logs
@@ -86,48 +125,5 @@ public class Messenger implements Properties {
             LOGGER.error("an exception in getResponce() : " + e);
             e.printStackTrace();
         }
-    }
-
-    /**
-     * create and configure a connection
-     *
-     * @return instance of URLConnection
-     */
-    private static URLConnection createConnection() {
-        URL url;
-        URLConnection urlConnection = null;
-        try {
-            url = new URL(URL);
-            urlConnection = url.openConnection();
-        } catch (Exception e) {
-            LOGGER.error("an exception in createConnection() : " + e);
-            e.printStackTrace();
-        }
-        urlConnection.setDoInput(true);
-        urlConnection.setDoOutput(true);
-        urlConnection.setConnectTimeout(20000);
-        urlConnection.setReadTimeout(20000);
-        urlConnection.setUseCaches(false);
-        urlConnection.setDefaultUseCaches(false);
-        return urlConnection;
-    }
-
-    /**
-     * set headers of the connection
-     * and signs a String
-     *
-     * @param message - string for signature
-     */
-    private static void setConnectionHeaders(String message) {
-        String requestSign = null;
-        try {
-            requestSign = security.sign(message);
-        } catch (SignatureException e) {
-            e.printStackTrace();
-        }
-        connection.setRequestProperty("Content-Type", "text/xml");
-        connection.setRequestProperty(HEADER_NAME, requestSign);
-        LOGGER.info("request xml   : \n" + "\n" + XmlParsing.prettyFormat(message) + "\n");
-        LOGGER.info("request sign  : " + requestSign);
     }
 }
