@@ -27,7 +27,7 @@ public class HttpsClient implements Properties {
      *
      * @param operation - Operation type
      */
-    static void operation(MainOperations operation) {
+    public static void operation(MainOperations operation) {
         String xmlMessage;
         System.out.println("\n--------" + operation.name() + "--------");
         if (operation == MainOperations.VERIFY) {
