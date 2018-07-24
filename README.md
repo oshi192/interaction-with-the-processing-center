@@ -12,7 +12,7 @@ Each RESPONCE verify by digital signature.
  
  Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
-point | attribute | ?? | true | Number of the payment acceptance point.
+point | attribute |  | true | Number of the payment acceptance point.
  
  **Request** teg contains one tag Verify or one Payment or many tags Status
  
