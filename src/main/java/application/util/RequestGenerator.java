@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * util class for generating requests string xml
+ * util class for generating requests xml formats string
  */
 public class RequestGenerator implements Properties {
 
@@ -23,6 +23,10 @@ public class RequestGenerator implements Properties {
 
     private static final Random random = new Random();
 
+    /**
+     * Generating Verify request
+     * @return one line string with xml verify request
+     */
     public static String generateVerify() {
         Verify verify = new Verify();
         verify.setAccount(generateNumberString(ACCOUNT_LENGTH));
@@ -34,6 +38,11 @@ public class RequestGenerator implements Properties {
         return XmlParsing.convertToString(request);
     }
 
+    /**
+     * Generating Payment request
+     * The request may include several Payments
+     * @return one line string with xml payment request
+     */
     public static String generatePayment() {
         Verify verify = new Verify();
         verify.setAccount(generateNumberString(ACCOUNT_LENGTH));
@@ -47,7 +56,12 @@ public class RequestGenerator implements Properties {
         Request request = new Request(POINT, data);
         return XmlParsing.convertToString(request);
     }
-    public static Payment generateSinglePayment() {
+
+    /**
+     * Generating Payment object
+     * @return generated Payment object
+     */
+    private static Payment generateSinglePayment() {
         Payment payment=new Payment();
         payment.setAccount(RequestGenerator.generateNumberString(ACCOUNT_LENGTH));
         payment.setId(random.nextLong());
@@ -60,6 +74,11 @@ public class RequestGenerator implements Properties {
         return payment;
     }
 
+    /**
+     * Generating Status request
+     * The request may include several Statuses
+     * @return one line string with xml status request
+     */
     public static String generateStatus() {
         List<Status> data = new ArrayList();
         int maxPeyments = random.nextInt(MAX_NUMBER_OF_ELEMENTS) + 1;
@@ -71,6 +90,13 @@ public class RequestGenerator implements Properties {
         return XmlParsing.convertToString(request);
     }
 
+
+    /**
+     * Generating list with attributes
+     * @param percentChanсe = chance that we will have attributes
+     * if we will have attributes we can create several instances
+     * @return List with attributes
+     */
     private static List<Attribute> generateAtributes(int percentChanсe) {
         List<Attribute> attributes = new ArrayList<>();
         if (random.nextInt(100) < percentChanсe % 101) {

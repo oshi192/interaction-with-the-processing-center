@@ -1,6 +1,5 @@
 package application.util;
 
-import application.Main;
 import application.Properties;
 import application.model.request.Request;
 import application.model.response.Response;
@@ -24,31 +23,36 @@ import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+/**
+ * class for working with xml format strings and parsing xml
+ */
+
 public class XmlParsing implements Properties {
-   private static final Logger LOGGER =Logger.getLogger(XmlParsing.class);
+    private static final Logger LOGGER = Logger.getLogger(XmlParsing.class);
 
     private XmlParsing() {
     }
 
     /**
-     * parse xml from file
+     * parse .xml file from resources folder to String
+     *
      * @param fileName - name of file with xml
      * @return string with xml
      */
-    public static String XmlToString(String fileName)  {
-        String output=null;
+    public static String XmlToString(String fileName) {
+        String output = null;
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(new File(RESOURCES_DIR+"/xml/" + fileName));
+            Document document = builder.parse(new File(RESOURCES_DIR + fileName));
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer transformer = tf.newTransformer();
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             StringWriter writer = new StringWriter();
             transformer.transform(new DOMSource(document), new StreamResult(writer));
             output = writer.getBuffer().toString();
-        }catch (Exception e){
-            LOGGER.error("an exception in XmlToString() : "+e);
+        } catch (Exception e) {
+            LOGGER.error("an exception in XmlToString() : " + e);
             e.printStackTrace();
         }
         return output;
@@ -74,9 +78,15 @@ public class XmlParsing implements Properties {
         return response;
     }
 
-    public static String convertToString (Request request) {
-        JAXBContext jaxbContext = null;
-        String xmlString=null;
+    /**
+     * Convert Request object to string xml
+     *
+     * @param request object for conversion
+     * @return String with xml formated data from request object
+     */
+    static String convertToString(Request request) {
+        JAXBContext jaxbContext;
+        String xmlString = null;
         try {
             jaxbContext = JAXBContext.newInstance(request.getClass());
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -85,30 +95,33 @@ public class XmlParsing implements Properties {
             jaxbMarshaller.marshal(request, sw);
             xmlString = sw.toString();
         } catch (JAXBException e) {
-            LOGGER.error("cannot convert ["+request+"] to string: "+e);
+            LOGGER.error("cannot convert [" + request + "] to string: " + e);
             e.printStackTrace();
         }
-       return xmlString;
+        return xmlString;
     }
 
-    public static String prettyFormat(String input, int indent) {
+    /**
+     * formats a one-line string xml into a habitual appearance
+     *
+     * @param input - one-line string with xml to be changed
+     * @return formatted string with xml
+     */
+    public static String prettyFormat(String input) {
         try {
             Source xmlInput = new StreamSource(new StringReader(input));
             StringWriter stringWriter = new StringWriter();
             StreamResult xmlOutput = new StreamResult(stringWriter);
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            transformerFactory.setAttribute("indent-number", indent);
+            transformerFactory.setAttribute("indent-number", INDENT);
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
             transformer.transform(xmlInput, xmlOutput);
             return xmlOutput.getWriter().toString();
         } catch (Exception e) {
-            throw new RuntimeException(e); // simple exception handling, please review it
+            throw new RuntimeException(e);
         }
     }
 
-    public static String prettyFormat(String input) {
-        return prettyFormat(input, 4);
-    }
 }

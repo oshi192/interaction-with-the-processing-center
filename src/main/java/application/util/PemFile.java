@@ -6,6 +6,9 @@ import org.bouncycastle.util.io.pem.PemWriter;
 
 import java.io.*;
 
+/**
+ * class for reading and writing .pem files
+ */
 public class PemFile {
 
 	private PemObject pemObject;

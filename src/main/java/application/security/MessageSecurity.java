@@ -12,8 +12,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * class - singletone
- * contains public and private keys
+ * Class for signing and verifying data
+ * Class - singleton
  */
 
 public class MessageSecurity implements Properties {
@@ -77,11 +77,11 @@ public class MessageSecurity implements Properties {
     }
 
     /**
-     * creates a PrivateKey based on the data from the .pem file
+     * Creates a PrivateKey based on the data from the .pem file
      *
      * @param factory use factory instance to generate key
      * @return instance of PrivateKey
-     * @throws InvalidKeySpecException if we hawe not correct key
+     * @throws InvalidKeySpecException if we have not correct key
      * @throws IOException             if there is no this file
      */
     private PrivateKey generatePrivateKey(KeyFactory factory) throws IOException, InvalidKeySpecException {
@@ -93,12 +93,10 @@ public class MessageSecurity implements Properties {
     }
 
     /**
-     * creates a PublicKey based on the data from the .pem file
+     * Creates a PublicKey based on the data from the .pem file
      *
-     * @param factory
+     * @param factory - KeyFactory for generating key
      * @return instance of PublicKey
-     * @throws InvalidKeySpecException
-     * @throws IOException
      */
     private PublicKey generatePublicKey(KeyFactory factory)
             throws InvalidKeySpecException, IOException {

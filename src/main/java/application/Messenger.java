@@ -11,9 +11,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.SignatureException;
 
+/**
+ * class to sends requests and receiving a response
+ */
 class Messenger implements Properties {
 
-    private static final Logger LOGGER =Logger.getLogger(Messenger.class);
+    private static final Logger LOGGER = Logger.getLogger(Messenger.class);
     private static MessageSecurity security = MessageSecurity.getInstance();
     private static URLConnection connection;
 
@@ -21,18 +24,21 @@ class Messenger implements Properties {
     }
 
     /**
-     * @param operation
+     * performs one of the operations
+     *
+     * @param operation - Operation type
      */
     static void operation(MainOperations operation) {
         String xmlMessage;
         System.out.println("\n--------" + operation.name() + "--------");
-        if (operation==MainOperations.VERIFY) {
+        if (operation == MainOperations.VERIFY) {
             xmlMessage = RequestGenerator.generateVerify();
-        }else if(operation==MainOperations.PAYMENT){
+        } else if (operation == MainOperations.PAYMENT) {
             xmlMessage = RequestGenerator.generatePayment();
-        }else{
+        } else {
             xmlMessage = RequestGenerator.generateStatus();
         }
+        connection = createConnection();
         setConnectionHeaders(xmlMessage);
         sendRequest(xmlMessage);
         getResponce();
@@ -40,17 +46,19 @@ class Messenger implements Properties {
 
 
     /**
+     * sends POST request
+     *
      * @param message - POST body
      */
-    public static void sendRequest(String message) {
-        OutputStreamWriter writer = null;
+    private static void sendRequest(String message) {
+        OutputStreamWriter writer;
         try {
             writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(message);
             writer.flush();
             writer.close();
         } catch (Exception e) {
-            LOGGER.error("an exception in sendRequest() : "+e);
+            LOGGER.error("an exception in sendRequest() : " + e);
             e.printStackTrace();
         }
 
@@ -58,9 +66,9 @@ class Messenger implements Properties {
 
 
     /**
-     *
+     * receiving a response and printing it into logs
      */
-    public static void getResponce() {
+    private static void getResponce() {
         try {
             InputStreamReader reader = new InputStreamReader(connection.getInputStream());
             StringBuilder buf = new StringBuilder();
@@ -75,7 +83,7 @@ class Messenger implements Properties {
             LOGGER.info("response sign : " + responceSign);
             LOGGER.info("verify sign   : " + security.verify(responceXml, responceSign));
         } catch (Exception e) {
-            LOGGER.error("an exception in getResponce() : "+e);
+            LOGGER.error("an exception in getResponce() : " + e);
             e.printStackTrace();
         }
     }
@@ -85,14 +93,14 @@ class Messenger implements Properties {
      *
      * @return instance of URLConnection
      */
-    private static URLConnection createConjection() {
+    private static URLConnection createConnection() {
         URL url;
         URLConnection urlConnection = null;
         try {
             url = new URL(URL);
             urlConnection = url.openConnection();
         } catch (Exception e) {
-            LOGGER.error("an exception in createConjection() : "+e);
+            LOGGER.error("an exception in createConnection() : " + e);
             e.printStackTrace();
         }
         urlConnection.setDoInput(true);
@@ -106,6 +114,7 @@ class Messenger implements Properties {
 
     /**
      * set headers of the connection
+     * and signs a String
      *
      * @param message - string for signature
      */
@@ -116,7 +125,6 @@ class Messenger implements Properties {
         } catch (SignatureException e) {
             e.printStackTrace();
         }
-        connection = createConjection();
         connection.setRequestProperty("Content-Type", "text/xml");
         connection.setRequestProperty(HEADER_NAME, requestSign);
         LOGGER.info("request xml   : \n" + "\n" + XmlParsing.prettyFormat(message) + "\n");

@@ -4,7 +4,6 @@ import application.model.Attribute;
 import lombok.*;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
