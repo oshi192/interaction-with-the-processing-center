@@ -31,7 +31,7 @@ account |attribute |varchar100 |true  |Subscriber number in the system of the se
 attribute  |element  | |false |Used to specify additional attributes. Maybe a few. The structure is the same as for Payment.
 
 -----------------------------------------------
- - Attribute:
+ - **Attribute**
  
 Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
@@ -39,7 +39,7 @@ name | attribute | varchar50 | true | Attribute name
 value | attribute | varchar100 | true | Attribute value
 
 ---------------------------------------
- - Payment
+ - **Payment**
  
 Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
@@ -52,14 +52,14 @@ date | attribute | Time | true | Date of receipt of payment, used for reconcilia
 attribute | element |  | false | Used to specify additional attributes. Maybe a few.
 
 --------------------------------------
- - Status
+ - **Status**
  
  Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
 id | attribute | Int8 | true | Agent Operation ID
 
 --------------------------------------
- - Result
+ - **Result**
  
  Name | A type | Format | Required | Description
 --- | --- | --- | --- | ---
