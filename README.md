@@ -2,7 +2,7 @@
 This application implements interaction with the processing center LeoGaming through three operations: Verify, Payment and Status.
 Each operation makes a POST request to the address [https://test.lgaming.net/external/extended](https://test.lgaming.net/external/extended). 
 
-Request includes xml bod and header "PayLogic-Signature" with digitally signed.
+Request includes xml body and header "PayLogic-Signature" with digitally signed.
 Each RESPONCE verify by digital signature.
 
 #### XML tegs:
