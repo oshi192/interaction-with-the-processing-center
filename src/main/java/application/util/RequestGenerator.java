@@ -64,7 +64,7 @@ public class RequestGenerator implements Properties {
     private static Payment generateSinglePayment() {
         Payment payment=new Payment();
         payment.setAccount(RequestGenerator.generateNumberString(ACCOUNT_LENGTH));
-        payment.setId(random.nextLong());
+        payment.setId(Math.abs(random.nextLong()));
         payment.setSum(random.nextInt(SUM_MAX+SUM_MIN)+SUM_MIN);
         payment.setCheck(random.nextInt(Integer.MAX_VALUE));
         payment.setService(SERVICE);
@@ -83,7 +83,7 @@ public class RequestGenerator implements Properties {
         List<Status> data = new ArrayList();
         int maxPeyments = random.nextInt(MAX_NUMBER_OF_ELEMENTS) + 1;
         for (int i = 0; i < maxPeyments; i++) {
-            Status status = new Status(random.nextLong());
+            Status status = new Status(Math.abs(random.nextLong()));
             data.add(status);
         }
         Request request = new Request(POINT, data);

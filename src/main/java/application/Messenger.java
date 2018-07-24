@@ -14,7 +14,7 @@ import java.security.SignatureException;
 /**
  * class to sends requests and receiving a response
  */
-class Messenger implements Properties {
+public class Messenger implements Properties {
 
     private static final Logger LOGGER = Logger.getLogger(Messenger.class);
     private static MessageSecurity security = MessageSecurity.getInstance();
