@@ -1,11 +1,12 @@
 ## Interaction-with-the-processing-center
-This application implements interaction with the processing center LeoGaming.
-sing Https connection
-there are 3 operations: Verify, Payment and Status.
-each operation makes a POST request to the address [https://test.lgaming.net/external/extended](https://test.lgaming.net/external/extended). and posted their data in xml body.
-each request sends with digital signature in Base64 format ("PayLogic-Signature" Header).
+This application implements interaction with the processing center LeoGaming through three operations: Verify, Payment and Status.
+Each operation makes a POST request to the address [https://test.lgaming.net/external/extended](https://test.lgaming.net/external/extended). 
 
-Each RESPONCE verify by digital signature, and their data also in xml body.
+Request consist with xml body. 
+Request have header "PayLogic-Signature" with digitally signed.
+Each RESPONCE verify by digital signature.
+
+
 #### XML tegs:
 
 ----------------------------------------------------------
@@ -83,15 +84,14 @@ server_time  | attribute  | Time  | false  | Время создания опе�
 To start application, use one of the following steps:
 #### in Linux
  - **use jar packajing:** <- preffered (need installed maven) 
-    - download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
-    - open terminal in sourse folder (where pom file is lying) and type
-    - mvn package
-    - java -jar target/TechTest-1.0-SNAPSHOT.jar  
+    - download or type: ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
+    - open terminal in sourse folder (where pom file is lying) and type the following:
+    - ```mvn package```
+    - ```java -jar target/TechTest-1.0-SNAPSHOT.jar ``` 
  - import to IntelliJ: 
     - download or ```git clone https://github.com/oshi192/interaction-with-the-processing-center.git```
     - needed instaled maven and lombok plugins 
     - fine->new->Project from existing source
- - import to Eclipse: 
 #### in Windows
  - use jar packajing:
  - import to IntelliJ: 
